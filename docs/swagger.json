@@ -1,0 +1,1079 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "ICOS Job Manager Microservice.",
+        "title": "Swagger Job Manager API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.4.1-latest"
+    },
+    "host": "localhost:8082",
+    "basePath": "/",
+    "paths": {
+        "/jobmanager/groups": {
+            "get": {
+                "description": "get all jobgroups",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobgroups"
+                ],
+                "summary": "Get All JobGroups",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/models.JobGroup"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "update a jobgroup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobgroups"
+                ],
+                "summary": "update a JobGroup",
+                "parameters": [
+                    {
+                        "description": "JobGroup information",
+                        "name": "JobGroup",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.JobGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.JobGroup"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create new jobgroup",
+                "consumes": [
+                    "text/plain"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobgroups"
+                ],
+                "summary": "create new JobGroup",
+                "parameters": [
+                    {
+                        "description": "Application manifest YAML",
+                        "name": "application",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.JobGroup"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/jobmanager/groups/undeploy/{group_uuid}": {
+            "put": {
+                "description": "stop jobgroup by uuid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobgroups"
+                ],
+                "summary": "Stop JobGroup by UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JobGroup UUID",
+                        "name": "group_uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.JobGroup"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/jobmanager/groups/{group_uuid}": {
+            "get": {
+                "description": "get jobgroup by uuid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobgroups"
+                ],
+                "summary": "Get JobGroup by UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JobGroup UUID",
+                        "name": "group_uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.JobGroup"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete job group by uuid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobgroups"
+                ],
+                "summary": "delete job group by UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JobGroup UUID",
+                        "name": "group_uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/jobmanager/jobs": {
+            "get": {
+                "description": "get all jobs",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobs"
+                ],
+                "summary": "List all Jobs",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/models.Job"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find Jobs",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "update a job",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobs"
+                ],
+                "summary": "Update a Job",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Job UUID",
+                        "name": "job_uuid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Job information",
+                        "name": "Job",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Job"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Job"
+                        }
+                    },
+                    "400": {
+                        "description": "Job UUID is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find Job to update",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/jobmanager/jobs/executable/{orchestrator}/{owner_id}": {
+            "get": {
+                "description": "get jobs to execute",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobs"
+                ],
+                "summary": "List Jobs to Execute",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Orchestrator type [ocm | nuvla]",
+                        "name": "orchestrator",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Owner ID",
+                        "name": "owner_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/models.Job"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Orchestrator type is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find executable Jobs",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/jobmanager/jobs/promote/{job_uuid}": {
+            "patch": {
+                "description": "promote job by uuid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobs"
+                ],
+                "summary": "Promote Job by UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Job UUID",
+                        "name": "job_uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Job Promoted",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Job UUID is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find Job to promote",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/jobmanager/jobs/{job_uuid}": {
+            "get": {
+                "description": "get job by uuid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobs"
+                ],
+                "summary": "Get Job by UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Job UUID",
+                        "name": "job_uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "schema": {
+                            "$ref": "#/definitions/models.Job"
+                        }
+                    },
+                    "400": {
+                        "description": "Job UUID is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find Job by UUID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete job by uuid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jobs"
+                ],
+                "summary": "Delete Job by UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Job UUID",
+                        "name": "job_uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Job UUID is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find Job to delete",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/jobmanager/policies/incompliance": {
+            "post": {
+                "description": "create new policy incompliance",
+                "consumes": [
+                    "text/plain"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "policies"
+                ],
+                "summary": "Create new Policy Incompliance",
+                "parameters": [
+                    {
+                        "description": "Incompliance Object",
+                        "name": "application",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Incompliance"
+                        }
+                    },
+                    "400": {
+                        "description": "Incompliance Object is not correct",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/jobmanager/resources/status": {
+            "put": {
+                "description": "update resource status by uuid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "resources"
+                ],
+                "summary": "Update resource status by UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Resource UUID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Resource info",
+                        "name": "resource",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Resource"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Resource updated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Resource UUID is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find Resource to update",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/jobmanager/resources/status/{job_uuid}": {
+            "get": {
+                "description": "get resource status by job uuid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "resources"
+                ],
+                "summary": "Get resource status by job UUID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Job UUID",
+                        "name": "job_uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Resource"
+                        }
+                    },
+                    "400": {
+                        "description": "Job UUID is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find Job by UUID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Condition": {
+            "type": "object",
+            "required": [
+                "lastTransitionTime",
+                "message",
+                "reason",
+                "status",
+                "type"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "lastTransitionTime": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "observedGeneration": {
+                    "type": "integer"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/models.ConditionStatus"
+                },
+                "type": {
+                    "$ref": "#/definitions/models.ResourceState"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ConditionStatus": {
+            "type": "string",
+            "enum": [
+                "True",
+                "False",
+                "Unknown"
+            ],
+            "x-enum-varnames": [
+                "ConditionTrue",
+                "ConditionFalse",
+                "ConditionUnknown"
+            ]
+        },
+        "models.Incompliance": {
+            "type": "object",
+            "required": [
+                "policyName",
+                "remediation"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "currentValue": {
+                    "description": "ResourceID         string          `gorm:\"type:char(36);not null\" json:\"id\" validate:\"omitempty,uuid4\"`",
+                    "type": "string"
+                },
+                "extraLabels": {
+                    "$ref": "#/definitions/models.StringMap"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "measurementBackend": {
+                    "type": "string"
+                },
+                "policyId": {
+                    "type": "string"
+                },
+                "policyName": {
+                    "type": "string"
+                },
+                "remediation": {
+                    "$ref": "#/definitions/models.RemediationType"
+                },
+                "subject": {
+                    "$ref": "#/definitions/models.Subject"
+                },
+                "threshold": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Job": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "job_group_description": {
+                    "description": "add validation when unmocking mm",
+                    "type": "string"
+                },
+                "job_group_id": {
+                    "type": "string"
+                },
+                "job_group_name": {
+                    "description": "add validation when unmocking mm",
+                    "type": "string"
+                },
+                "manifests": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.PlainManifest"
+                    }
+                },
+                "namespace": {
+                    "type": "string"
+                },
+                "orchestrator": {
+                    "description": "check why required fails when dm updates job for orchestrator",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.OrchestratorType"
+                        }
+                    ]
+                },
+                "owner_id": {
+                    "type": "string"
+                },
+                "resource": {
+                    "$ref": "#/definitions/models.Resource"
+                },
+                "state": {
+                    "$ref": "#/definitions/models.JobState"
+                },
+                "sub_type": {
+                    "$ref": "#/definitions/models.RemediationType"
+                },
+                "targets": {
+                    "$ref": "#/definitions/models.Target"
+                },
+                "type": {
+                    "$ref": "#/definitions/models.JobType"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.JobGroup": {
+            "type": "object",
+            "required": [
+                "jobs"
+            ],
+            "properties": {
+                "appDescription": {
+                    "description": "add validation when unmocking mm",
+                    "type": "string"
+                },
+                "appName": {
+                    "description": "add validation when unmocking mm",
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "jobs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Job"
+                    }
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.JobState": {
+            "type": "integer",
+            "enum": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "x-enum-varnames": [
+                "JobCreated",
+                "JobProgressing",
+                "JobFinished",
+                "JobDegraded"
+            ]
+        },
+        "models.JobType": {
+            "type": "integer",
+            "enum": [
+                5,
+                6,
+                7,
+                8
+            ],
+            "x-enum-varnames": [
+                "CreateDeployment",
+                "DeleteDeployment",
+                "UpdateDeployment",
+                "ReplaceDeployment"
+            ]
+        },
+        "models.OrchestratorType": {
+            "type": "string",
+            "enum": [
+                "ocm",
+                "nuvla",
+                ""
+            ],
+            "x-enum-varnames": [
+                "OCM",
+                "Nuvla",
+                "None"
+            ]
+        },
+        "models.PlainManifest": {
+            "type": "object",
+            "required": [
+                "yamlString"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "yamlString": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.RemediationType": {
+            "type": "string",
+            "enum": [
+                "scale-up",
+                "scale-down",
+                "scale-out",
+                "scale-in",
+                "patch",
+                "reallocation"
+            ],
+            "x-enum-varnames": [
+                "ScaleUp",
+                "ScaleDown",
+                "ScaleOut",
+                "ScaleIn",
+                "PatchDeployment",
+                "Reallocation"
+            ]
+        },
+        "models.Resource": {
+            "type": "object",
+            "properties": {
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Condition"
+                    }
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "job_id": {
+                    "type": "string"
+                },
+                "resource_name": {
+                    "type": "string"
+                },
+                "resource_uuid": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ResourceState": {
+            "type": "string",
+            "enum": [
+                "Progressing",
+                "Applied",
+                "Available",
+                "Degraded"
+            ],
+            "x-enum-varnames": [
+                "Progressing",
+                "Applied",
+                "Available",
+                "Degraded"
+            ]
+        },
+        "models.StringMap": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "models.Subject": {
+            "type": "object",
+            "properties": {
+                "appComponent": {
+                    "type": "string"
+                },
+                "appInstance": {
+                    "type": "string"
+                },
+                "appName": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "resourceId": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Target": {
+            "type": "object",
+            "required": [
+                "cluster_name",
+                "orchestrator"
+            ],
+            "properties": {
+                "cluster_name": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "node_name": {
+                    "type": "string"
+                },
+                "orchestrator": {
+                    "$ref": "#/definitions/models.OrchestratorType"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "description": "\"Type 'Bearer TOKEN' to correctly set the API Key\"",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "externalDocs": {
+        "description": "OpenAPI",
+        "url": "https://swagger.io/resources/open-api/"
+    }
+}

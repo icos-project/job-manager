@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jobmanager-service
+  name: jobmanager-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jobmanager-service
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: jobmanager-service
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - name: jobmanager-service
+        image: registry.atosresearch.eu:18484/icos-jobmanager-svc:main
+        imagePullPolicy: Always 
+        envFrom:
+        - configMapRef:
+            name: jobmanager-config
+        resources: {}
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: nexusicossecret
+status: {}
