@@ -47,14 +47,14 @@ ingress:
   # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
   hosts:
-  - host: k3s.bull1.ari-imet.eu
+  - host: "example-host"
     paths:
     - path: /jobmanager
       pathType: Prefix
       # tls: 
       # - hosts:
-      #       - k3s.bull1.ari-imet.eu
-      #   secretName: k3s-bull1-secret
+      #       - 
+      #   secretName: secret-name
       #  - secretName: chart-example-tls
       #    hosts:
       #      - chart-example.local
@@ -65,7 +65,7 @@ configMap:
   dbName: jobmanager
   dbPassword: secret
   dbPort: 3306
-  dbUser: root
+  dbUser: secret
   serverPort: 8082
   lighthouseBaseUrl: http://lighthouse-url/
   matchmakingUrl: http://matchmaking-url/
